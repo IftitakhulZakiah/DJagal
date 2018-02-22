@@ -1,10 +1,13 @@
 package com.example.dcow.djagal;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,12 +24,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        DashboardFragment.OnFragmentInteractionListener,
+        ChattingFragment.OnFragmentInteractionListener,
+        ReportFragment.OnFragmentInteractionListener,
+        TrackingFragment.OnFragmentInteractionListener,
+        SettingsFragment.OnFragmentInteractionListener
+        {
 
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
     private Button signOut;
     private ProgressBar progressBar;
+    private boolean viewIsAtHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +73,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        viewIsAtHome = true;
+        displayView(R.id.nav_dashboard);
 //        signOut = (Button) findViewById(R.id.btn_sign_out);
 //        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 //
@@ -80,6 +92,64 @@ public class MainActivity extends AppCompatActivity
 
     public void signOut() {
         auth.signOut();
+    }
+
+    public void displayView(int viewId) {
+
+        Fragment fragment = null;
+        String title = getString(R.string.app_name);
+
+        switch (viewId) {
+            case R.id.nav_dashboard:
+                fragment = new DashboardFragment();
+                title  = "Dashboard";
+                viewIsAtHome = true;
+                break;
+
+            case R.id.nav_chatting:
+                fragment = new ChattingFragment();
+                title = "Chatting";
+                viewIsAtHome = false;
+                break;
+
+            case R.id.nav_report:
+                fragment = new ReportFragment();
+                title = "Report";
+                viewIsAtHome = false;
+                break;
+
+            case R.id.nav_tracking:
+                fragment = new TrackingFragment();
+                title  = "Tracking";
+                viewIsAtHome = false;
+                break;
+
+            case R.id.nav_settings:
+                fragment = new SettingsFragment();
+                title  = "Settings";
+                viewIsAtHome = false;
+                break;
+        }
+
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame, fragment);
+            ft.commit();
+        }
+
+        // set the toolbar title
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri){
+        //you can leave it empty
     }
 
     @Override
@@ -107,8 +177,11 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        }
+        if (!viewIsAtHome) { //if the current view is not the News fragment
+            displayView(R.id.nav_dashboard); //display the News fragment
         } else {
-            super.onBackPressed();
+            moveTaskToBack(true);  //If view is in News fragment, exit application
         }
     }
 
@@ -138,22 +211,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_dashboard) {
-            // Handle the camera action
-        } else if (id == R.id.nav_chatting) {
-
-        } else if (id == R.id.nav_report) {
-
-        } else if (id == R.id.nav_tracking) {
-
-        } else if (id == R.id.nav_settings) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        displayView(item.getItemId());
         return true;
     }
 }
