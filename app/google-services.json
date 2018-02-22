@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "933441305196",
+    "firebase_url": "https://djagal-2fce9.firebaseio.com",
+    "project_id": "djagal-2fce9",
+    "storage_bucket": "djagal-2fce9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933441305196:android:bff7cc90db65f3d5",
+        "android_client_info": {
+          "package_name": "com.example.dcow.djagal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "933441305196-kj3uf78gnpho1qhorbr23mef3jq7beu5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dcow.djagal",
+            "certificate_hash": "356da3e8eb4efaeacba532e71e17cc53951e7185"
+          }
+        },
+        {
+          "client_id": "933441305196-kuvne0p2th5jqfob41reo1cbqnbr1b0l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJpTcRRlIxDYMgcQQz2tFFYONwHgYzL4Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "933441305196-kuvne0p2th5jqfob41reo1cbqnbr1b0l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
