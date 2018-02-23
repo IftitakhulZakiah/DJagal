@@ -1,12 +1,22 @@
 package com.example.dcow.djagal;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -26,6 +36,9 @@ public class TrackingFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private List<Transaction> transactionList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private TransactionAdapter mAdapter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,7 +77,32 @@ public class TrackingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tracking, container, false);
+        View view = inflater.inflate(R.layout.fragment_tracking, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_tracking);
+
+        mAdapter = new TransactionAdapter(transactionList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new MyDividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL, 16));
+        recyclerView.setAdapter(mAdapter);
+
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity().getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Intent intent = new Intent(getActivity(), ShowTransactionActivity.class);
+                intent.putExtra("com.example.dcow.djagal.extra.nomortransaksi", Integer.toString(transactionList.get(position).getNomor()));
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
+        prepareTransactionData();
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -104,5 +142,41 @@ public class TrackingFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void prepareTransactionData() {
+        Transaction transaction = new Transaction(1, "Adya", "Naufal", "On Process",
+        200, Calendar.getInstance().getTime());
+        transactionList.add(transaction);
+
+        transaction = new Transaction(2, "Adya", "Naufal", "On Process",
+                200, Calendar.getInstance().getTime());
+        transactionList.add(transaction);
+
+        transaction = new Transaction(3, "Adya", "Naufal", "On Process",
+                200, Calendar.getInstance().getTime());
+        transactionList.add(transaction);
+
+        transaction = new Transaction(4, "Adya", "Naufal", "On Process",
+                200, Calendar.getInstance().getTime());
+        transactionList.add(transaction);
+
+        transaction = new Transaction(5, "Adya", "Naufal", "On Process",
+                200, Calendar.getInstance().getTime());
+        transactionList.add(transaction);
+
+        transaction = new Transaction(6, "Adya", "Naufal", "On Process",
+                200, Calendar.getInstance().getTime());
+        transactionList.add(transaction);
+
+        transaction = new Transaction(7, "Adya", "Naufal", "On Process",
+                200, Calendar.getInstance().getTime());
+        transactionList.add(transaction);
+
+        transaction = new Transaction(8, "Adya", "Naufal", "On Process",
+                200, Calendar.getInstance().getTime());
+        transactionList.add(transaction);
+
+        mAdapter.notifyDataSetChanged();
     }
 }
