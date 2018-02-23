@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 
 /**
@@ -26,6 +28,7 @@ public class DashboardFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,7 +67,20 @@ public class DashboardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        Spinner spinner_month = (Spinner) view.findViewById(R.id.month_picker);
+        ArrayAdapter<CharSequence> adapter_month = ArrayAdapter.createFromResource(getActivity().getBaseContext(),
+                R.array.months, android.R.layout.simple_spinner_item);
+        adapter_month.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_month.setAdapter(adapter_month);
+        spinner_month.setSelection(adapter_month.getCount()-1);
+        Spinner spinner_year = (Spinner) view.findViewById(R.id.year_picker);
+        ArrayAdapter<CharSequence> adapter_year = ArrayAdapter.createFromResource(getActivity().getBaseContext(),
+                R.array.years, android.R.layout.simple_spinner_item);
+        adapter_year.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_year.setAdapter(adapter_year);
+        spinner_year.setSelection(adapter_year.getCount()-1);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity
     private Button signOut;
     private ProgressBar progressBar;
     private boolean viewIsAtHome;
+    private boolean searchBarTracking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         viewIsAtHome = true;
+        searchBarTracking = false;
         displayView(R.id.nav_dashboard);
 //        signOut = (Button) findViewById(R.id.btn_sign_out);
 //        progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -104,30 +106,35 @@ public class MainActivity extends AppCompatActivity
                 fragment = new DashboardFragment();
                 title  = "Dashboard";
                 viewIsAtHome = true;
+                searchBarTracking = false;
                 break;
 
             case R.id.nav_chatting:
                 fragment = new ChattingFragment();
                 title = "Chatting";
                 viewIsAtHome = false;
+                searchBarTracking = false;
                 break;
 
             case R.id.nav_report:
                 fragment = new ReportFragment();
                 title = "Report";
                 viewIsAtHome = false;
+                searchBarTracking = false;
                 break;
 
             case R.id.nav_tracking:
                 fragment = new TrackingFragment();
                 title  = "Tracking";
                 viewIsAtHome = false;
+                searchBarTracking = true;
                 break;
 
             case R.id.nav_settings:
                 fragment = new SettingsFragment();
                 title  = "Settings";
                 viewIsAtHome = false;
+                searchBarTracking = false;
                 break;
         }
 
@@ -178,10 +185,10 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
-        if (!viewIsAtHome) { //if the current view is not the News fragment
-            displayView(R.id.nav_dashboard); //display the News fragment
+        if (!viewIsAtHome) {
+            displayView(R.id.nav_dashboard);
         } else {
-            moveTaskToBack(true);  //If view is in News fragment, exit application
+            moveTaskToBack(true);
         }
     }
 
@@ -189,6 +196,10 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+        if(searchBarTracking){
+
+        }
         return true;
     }
 

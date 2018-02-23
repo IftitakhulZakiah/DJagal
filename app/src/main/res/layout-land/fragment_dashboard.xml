@@ -40,18 +40,17 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             tools:context="com.example.dcow.djagal.MainActivity"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="10dp"
             android:layout_below="@+id/month_year_pick"
             android:background="#fcfcfc"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:id="@+id/ll">
             <LinearLayout
                 android:clipToPadding="false"
-                android:gravity="center"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -59,17 +58,17 @@
                     android:foreground="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:id="@+id/transaksi"
-                    android:layout_width="160dp"
+                    android:layout_width="130dp"
                     android:layout_height="210dp"
-                    android:layout_margin="10dp">
+                    android:layout_margin="5dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:gravity="center">
                         <TextView
-                            android:layout_width="96dp"
-                            android:layout_height="96dp"
+                            android:layout_width="82dp"
+                            android:layout_height="82dp"
                             android:background="@drawable/circlebackgroundpurple"
                             android:padding="10dp"
                             android:text="13"
@@ -101,17 +100,17 @@
                 <android.support.v7.widget.CardView
                     android:foreground="?android:attr/selectableItemBackground"
                     android:clickable="true"
-                    android:layout_width="160dp"
+                    android:layout_width="130dp"
                     android:layout_height="210dp"
-                    android:layout_margin="10dp">
+                    android:layout_margin="5dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:gravity="center">
                         <TextView
-                            android:layout_width="96dp"
-                            android:layout_height="96dp"
+                            android:layout_width="82dp"
+                            android:layout_height="82dp"
                             android:background="@drawable/circlebackgroundpink"
                             android:padding="10dp"
                             android:text="200"
@@ -140,28 +139,20 @@
 
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
-
-            </LinearLayout>
-            <LinearLayout
-                android:clipToPadding="false"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
                 <android.support.v7.widget.CardView
                     android:foreground="?android:attr/selectableItemBackground"
                     android:clickable="true"
-                    android:layout_width="160dp"
+                    android:layout_width="130dp"
                     android:layout_height="210dp"
-                    android:layout_margin="10dp">
+                    android:layout_margin="5dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:gravity="center">
                         <TextView
-                            android:layout_width="96dp"
-                            android:layout_height="96dp"
+                            android:layout_width="82dp"
+                            android:layout_height="82dp"
                             android:background="@drawable/circlebackgroundgreen"
                             android:padding="10dp"
                             android:text="200"
@@ -193,9 +184,9 @@
                 <android.support.v7.widget.CardView
                     android:foreground="?android:attr/selectableItemBackground"
                     android:clickable="true"
-                    android:layout_width="160dp"
+                    android:layout_width="130dp"
                     android:layout_height="210dp"
-                    android:layout_margin="10dp">
+                    android:layout_margin="5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -204,8 +195,8 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="96dp"
-                            android:layout_height="96dp"
+                            android:layout_width="82dp"
+                            android:layout_height="82dp"
                             android:background="@drawable/circlebackgroundyellow"
                             android:padding="10dp"
                             android:text="180"
