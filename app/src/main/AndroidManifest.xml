@@ -23,6 +23,10 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ShowTransactionActivity"
+            android:label="@string/title_activity_show_transaction"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

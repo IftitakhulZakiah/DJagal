@@ -52,4 +52,5 @@
         <item>2017</item>
         <item>2018</item>
     </string-array>
+    <string name="title_activity_show_transaction">ShowTransactionActivity</string>
 </resources>
