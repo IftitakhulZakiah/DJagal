@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="10dp">
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:padding="10dp"
+        android:src="@drawable/ic_cow_black_48px" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/rfidSapi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RFID"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/lokasiSapi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rfidSapi"
+            android:text="Bandung"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/statusSapi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lokasiSapi"
+            android:text="On Process"
+            android:textStyle="italic"
+            android:textSize="10sp"
+            android:textColor="@color/pink"/>
+    </LinearLayout>
+
+</LinearLayout>
