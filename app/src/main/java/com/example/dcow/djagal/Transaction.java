@@ -19,6 +19,7 @@ public class Transaction {
     private int total_cow;
     private String date;
 
+
     public Transaction() {
 
     }

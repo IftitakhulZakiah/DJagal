@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -62,7 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     
     private static final String CREATE_TABLE_TRANSACTION = "CREATE TABLE " + TABLE_TRANSACTION + " (" +
     KEY_TRANSACTION + " TEXT PRIMARY KEY," + KEY_NAME + " TEXT," + KEY_FROM + " TEXT," + 
-    KEY_TO + " TEXT," + KEY_STATUS + " TEXT," + KEY_TOTAL_COW + " INTEGER," + 
+    KEY_TO + " TEXT," + KEY_STATUS + " TEXT," + KEY_TOTAL_COW + " INTEGER," +
     KEY_DATE + " TEXT)";
 
     // Sapi table create statement
@@ -117,6 +118,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     
         // insert row
         long rowId = db.insertWithOnConflict(TABLE_TRANSACTION, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+
     
         return rowId;
     }
@@ -152,6 +154,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /*
     * getting all transaction
     * */
+
     public List<Transaction> getAllTransactions() throws ParseException {
         List<Transaction> transactions = new ArrayList<Transaction>();
         String selectQuery = "SELECT  * FROM " + TABLE_TRANSACTION;

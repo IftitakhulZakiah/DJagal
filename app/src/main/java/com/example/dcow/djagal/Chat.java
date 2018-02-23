@@ -17,16 +17,14 @@ public class Chat {
 
     }
 
-    public Chat(String from, String message, String userId){
+    public Chat(String from, String message, String userId) {
         this.from = from;
         this.message = message;
         this.date = new Date().getTime();
         this.userId = userId;
     }
 
-    public String getFrom() {
-        return from;
-    }
+    public String getFrom() { return from; }
 
     public void setFrom(String from) {
         this.from = from;

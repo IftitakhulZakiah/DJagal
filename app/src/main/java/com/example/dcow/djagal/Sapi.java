@@ -78,7 +78,6 @@ public class Sapi {
     public void setDeadDate(String dead_date){
         this.dead_date = dead_date;
     }
-
     public String getStatus(){
         return status;
     }
