@@ -12,8 +12,8 @@ import java.util.Date;
 
 public class Transaction {
     private int nomor;
-    private String penjual;
-    private String pembeli;
+    private String from;
+    private String to;
     private String status;
     private int jumlah_sapi;
     private Date tanggal;
@@ -22,11 +22,11 @@ public class Transaction {
 
     }
 
-    public Transaction(int nomor, String penjual, String pembeli, String status,
+    public Transaction(int nomor, String from, String to, String status,
                        int jumlah_sapi, Date tanggal) {
         this.nomor = nomor;
-        this.penjual = penjual;
-        this.pembeli = pembeli;
+        this.from = from;
+        this.to = to;
         this.status = status;
         this.jumlah_sapi = jumlah_sapi;
         this.tanggal = tanggal;
@@ -40,20 +40,20 @@ public class Transaction {
         this.nomor = nomor;
     }
 
-    public String getPenjual() {
-        return penjual;
+    public String getFrom() {
+        return from;
     }
 
-    public void setPenjual(String penjual) {
-        this.penjual = penjual;
+    public void setFrom(String from) {
+        this.from = from;
     }
 
-    public String getPembeli() {
-        return pembeli;
+    public String getTo() {
+        return to;
     }
 
-    public void setPembeli(String pembeli) {
-        this.pembeli = pembeli;
+    public void setTo(String to) {
+        this.to = to;
     }
 
     public String getStatus() {
