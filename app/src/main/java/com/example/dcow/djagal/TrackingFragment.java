@@ -39,8 +39,8 @@ public class TrackingFragment extends Fragment {
     private List<Transaction> transactionList = new ArrayList<>();
     private RecyclerView recyclerView;
     private TransactionAdapter mAdapter;
-
     private OnFragmentInteractionListener mListener;
+    DatabaseHelper db;
 
     public TrackingFragment() {
         // Required empty public constructor
@@ -71,6 +71,7 @@ public class TrackingFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        db = new DatabaseHelper(getActivity());
     }
 
     @Override
@@ -91,7 +92,7 @@ public class TrackingFragment extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 Intent intent = new Intent(getActivity(), ShowTransactionActivity.class);
-                intent.putExtra("com.example.dcow.djagal.extra.nomortransaksi", Integer.toString(transactionList.get(position).getNomor()));
+                intent.putExtra("com.example.dcow.djagal.extra.idtransaksi", (transactionList.get(position).getName()));
                 startActivity(intent);
             }
 
@@ -145,37 +146,10 @@ public class TrackingFragment extends Fragment {
     }
 
     private void prepareTransactionData() {
-        Transaction transaction = new Transaction(1, "Adya", "Naufal", "On Process",
-        200, Calendar.getInstance().getTime());
-        transactionList.add(transaction);
-
-        transaction = new Transaction(2, "Adya", "Naufal", "On Process",
-                200, Calendar.getInstance().getTime());
-        transactionList.add(transaction);
-
-        transaction = new Transaction(3, "Adya", "Naufal", "On Process",
-                200, Calendar.getInstance().getTime());
-        transactionList.add(transaction);
-
-        transaction = new Transaction(4, "Adya", "Naufal", "On Process",
-                200, Calendar.getInstance().getTime());
-        transactionList.add(transaction);
-
-        transaction = new Transaction(5, "Adya", "Naufal", "On Process",
-                200, Calendar.getInstance().getTime());
-        transactionList.add(transaction);
-
-        transaction = new Transaction(6, "Adya", "Naufal", "On Process",
-                200, Calendar.getInstance().getTime());
-        transactionList.add(transaction);
-
-        transaction = new Transaction(7, "Adya", "Naufal", "On Process",
-                200, Calendar.getInstance().getTime());
-        transactionList.add(transaction);
-
-        transaction = new Transaction(8, "Adya", "Naufal", "On Process",
-                200, Calendar.getInstance().getTime());
-        transactionList.add(transaction);
+        List<Transaction> trs = db.getAllTransactions();
+        for (Transaction tr : trs){
+            transactionList.add(tr);
+        }
 
         mAdapter.notifyDataSetChanged();
     }

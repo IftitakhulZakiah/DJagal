@@ -23,6 +23,8 @@ import android.widget.ProgressBar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         DashboardFragment.OnFragmentInteractionListener,
@@ -38,11 +40,14 @@ public class MainActivity extends AppCompatActivity
     private ProgressBar progressBar;
     private boolean viewIsAtHome;
     private boolean searchBarTracking;
+    DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        db = new DatabaseHelper(getApplicationContext());
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -177,6 +182,12 @@ public class MainActivity extends AppCompatActivity
         if (authListener != null) {
             auth.removeAuthStateListener(authListener);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        db.close();
+        super.onDestroy();
     }
 
     @Override

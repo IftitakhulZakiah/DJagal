@@ -19,12 +19,12 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     private List<Transaction> transactionsList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView nomor, tanggal;
+        public TextView name, date;
 
         public MyViewHolder(View view) {
             super(view);
-            nomor = (TextView) view.findViewById(R.id.titleTransaksi);
-            tanggal = (TextView) view.findViewById(R.id.dateTransaksi);
+            name = (TextView) view.findViewById(R.id.titleTransaksi);
+            date = (TextView) view.findViewById(R.id.dateTransaksi);
         }
     }
 
@@ -44,9 +44,9 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Transaction transaction = transactionsList.get(position);
-        holder.nomor.setText("Transaksi " + Integer.toString(transaction.getNomor()));
+        holder.name.setText("Transaksi " + transaction.getName());
         DateFormat df = new SimpleDateFormat("dd MMMM yyyy", Locale.US);
-        holder.tanggal.setText(df.format(transaction.getTanggal()));
+        holder.date.setText(df.format(transaction.getDate()));
     }
 
     @Override
