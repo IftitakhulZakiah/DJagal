@@ -11,16 +11,17 @@ public class Chat {
     private String from;
     private String message;
     private long date;
-
+    private String userId;
 
     public Chat(){
 
     }
 
-    public Chat(String from, String message){
+    public Chat(String from, String message, String userId){
         this.from = from;
         this.message = message;
         this.date = new Date().getTime();
+        this.userId = userId;
     }
 
     public String getFrom() {
@@ -46,4 +47,8 @@ public class Chat {
     public void setDate(long date) {
         this.date = date;
     }
+
+    public String getUserId() { return userId; }
+
+    public void setUserId(String userId) { this.userId = userId; }
 }

@@ -10,9 +10,9 @@ public class Sapi {
     private String id_transaksi;
     private String rfid;
     private String location;
-    private Date send_date;
-    private Date received_date;
-    private Date dead_date;
+    private String send_date;
+    private String received_date;
+    private String dead_date;
     private String status;
     
 
@@ -20,8 +20,8 @@ public class Sapi {
 
     }
 
-    public Sapi(String id_transaksi, String rfid, String location, Date send_date, Date received_date,
-                Date dead_date, String status){
+    public Sapi(String id_transaksi, String rfid, String location, String send_date, String received_date,
+                String dead_date, String status){
         this.id_transaksi = id_transaksi;
         this.rfid = rfid;
         this.location = location;
@@ -55,27 +55,27 @@ public class Sapi {
         this.location = location;
     }
 
-    public Date getSendDate(){
+    public String getSendDate(){
         return send_date;
     }
 
-    public void setSendDate(Date send_date){
+    public void setSendDate(String send_date){
         this.send_date = send_date;
     }
 
-    public Date getReceivedDate(){
+    public String getReceivedDate(){
         return received_date;
     }
 
-    public void setReceivedDate(Date received_date){
+    public void setReceivedDate(String received_date){
         this.received_date = received_date;
     }
 
-    public Date getDeadDate(){
+    public String getDeadDate(){
         return dead_date;
     }
 
-    public void setDeadDate(Date dead_date){
+    public void setDeadDate(String dead_date){
         this.dead_date = dead_date;
     }
 

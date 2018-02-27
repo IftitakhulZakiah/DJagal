@@ -45,8 +45,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Transaction transaction = transactionsList.get(position);
         holder.name.setText("Transaksi " + transaction.getName());
-        DateFormat df = new SimpleDateFormat("dd MMMM yyyy", Locale.US);
-        holder.date.setText(df.format(transaction.getDate()));
+        holder.date.setText(transaction.getDate());
     }
 
     @Override

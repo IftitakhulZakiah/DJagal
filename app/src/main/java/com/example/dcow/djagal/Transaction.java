@@ -17,14 +17,14 @@ public class Transaction {
     private String to;
     private String status;
     private int total_cow;
-    private Date date;
+    private String date;
 
     public Transaction() {
 
     }
 
     public Transaction(String id_object, String name, String from, String to, String status,
-                       int total_cow, Date date) {
+                       int total_cow, String date) {
         this.id_object = id_object;
         this.name = name;
         this.from = from;
@@ -82,11 +82,11 @@ public class Transaction {
         this.total_cow = total_cow;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

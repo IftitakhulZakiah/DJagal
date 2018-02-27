@@ -1,6 +1,7 @@
 package com.example.dcow.djagal;
 
 import android.content.Intent;
+import android.net.ParseException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,6 +25,16 @@ import android.widget.ProgressBar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity
@@ -82,6 +94,8 @@ public class MainActivity extends AppCompatActivity
         viewIsAtHome = true;
         searchBarTracking = false;
         displayView(R.id.nav_dashboard);
+
+        initializeDatabase();
 //        signOut = (Button) findViewById(R.id.btn_sign_out);
 //        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 //
@@ -235,5 +249,9 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         displayView(item.getItemId());
         return true;
+    }
+
+    public void initializeDatabase(){
+        new RetrieveDatabaseTask(this.getApplicationContext()).execute("");
     }
 }

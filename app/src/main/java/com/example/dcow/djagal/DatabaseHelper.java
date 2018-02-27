@@ -5,8 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.format.DateFormat;
 import android.util.Log;
 
+import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,18 +63,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_TRANSACTION = "CREATE TABLE " + TABLE_TRANSACTION + " (" +
     KEY_TRANSACTION + " TEXT PRIMARY KEY," + KEY_NAME + " TEXT," + KEY_FROM + " TEXT," + 
     KEY_TO + " TEXT," + KEY_STATUS + " TEXT," + KEY_TOTAL_COW + " INTEGER," + 
-    KEY_DATE + " DATETIME)";
+    KEY_DATE + " TEXT)";
 
     // Sapi table create statement
     private static final String CREATE_TABLE_SAPI = "CREATE TABLE " + TABLE_SAPI
             + "(" + KEY_RFID + " TEXT PRIMARY KEY," + KEY_ID_TRANSACTION + " TEXT,"
-            + KEY_LOCATION + " TEXT," + KEY_SEND_DATE + " DATETIME," + KEY_RECEIVED_DATE + " DATETIME," 
-            + KEY_DEAD_DATE + " DATETIME," +  KEY_STATUS + " TEXT" + ")";
+            + KEY_LOCATION + " TEXT," + KEY_SEND_DATE + " TEXT," + KEY_RECEIVED_DATE + " TEXT," 
+            + KEY_DEAD_DATE + " TEXT," +  KEY_STATUS + " TEXT" + ")";
 
     // Chat table create statement
     private static final String CREATE_TABLE_CHAT = "CREATE TABLE "
             + TABLE_CHAT + "(" + KEY_FROM + " TEXT,"
-            + KEY_MESSAGE + " TEXT," + KEY_DATE + " DATETIME" + ")";
+            + KEY_MESSAGE + " TEXT," + KEY_DATE + " TEXT" + ")";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -108,10 +113,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_TO, transaction.getTo());
         values.put(KEY_STATUS, transaction.getStatus());
         values.put(KEY_TOTAL_COW, transaction.getTotalCow());
-        values.put(KEY_DATE, String.valueOf(transaction.getDate()));
+        values.put(KEY_DATE, transaction.getDate());
     
         // insert row
-        long rowId = db.insert(TABLE_TRANSACTION, null, values);
+        long rowId = db.insertWithOnConflict(TABLE_TRANSACTION, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     
         return rowId;
     }
@@ -139,7 +144,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         tr.setTo(c.getString(c.getColumnIndex(KEY_TO)));
         tr.setStatus(c.getString(c.getColumnIndex(KEY_STATUS)));
         tr.setTotalCow(c.getInt(c.getColumnIndex(KEY_TOTAL_COW)));
-        tr.setDate(new Date(c.getLong(c.getColumnIndex(KEY_DATE))));
+        tr.setDate(c.getString(c.getColumnIndex(KEY_DATE)));
 
         return tr;
     }
@@ -147,7 +152,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /*
     * getting all transaction
     * */
-    public List<Transaction> getAllTransactions() {
+    public List<Transaction> getAllTransactions() throws ParseException {
         List<Transaction> transactions = new ArrayList<Transaction>();
         String selectQuery = "SELECT  * FROM " + TABLE_TRANSACTION;
     
@@ -166,7 +171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 tr.setTo(c.getString(c.getColumnIndex(KEY_TO)));
                 tr.setStatus(c.getString(c.getColumnIndex(KEY_STATUS)));
                 tr.setTotalCow(c.getInt(c.getColumnIndex(KEY_TOTAL_COW)));
-                tr.setDate(new Date(c.getLong(c.getColumnIndex(KEY_DATE))));
+                tr.setDate(c.getString(c.getColumnIndex(KEY_DATE)));
     
                 // adding to Transaction list
                 transactions.add(tr);
@@ -189,7 +194,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_TO, transaction.getTo());
         values.put(KEY_STATUS, transaction.getStatus());
         values.put(KEY_TOTAL_COW, transaction.getTotalCow());
-        values.put(KEY_DATE, String.valueOf(transaction.getDate()));
+        values.put(KEY_DATE, transaction.getDate());
     
         // updating row
         return db.update(TABLE_TRANSACTION, values, KEY_TRANSACTION + " = ?",
@@ -203,13 +208,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_RFID, sapi.getRfid());
         values.put(KEY_ID_TRANSACTION, sapi.getIdTransaksi());
         values.put(KEY_LOCATION, sapi.getLocation());
-        values.put(KEY_SEND_DATE, String.valueOf(sapi.getSendDate()));
-        values.put(KEY_RECEIVED_DATE, String.valueOf(sapi.getReceivedDate()));
-        values.put(KEY_DEAD_DATE, String.valueOf(sapi.getDeadDate()));
+        values.put(KEY_SEND_DATE, sapi.getSendDate());
+        values.put(KEY_RECEIVED_DATE, sapi.getReceivedDate());
+        values.put(KEY_DEAD_DATE, sapi.getDeadDate());
         values.put(KEY_STATUS, sapi.getStatus());
     
         // insert row
-        long rowId = db.insert(TABLE_SAPI, null, values);
+        long rowId = db.insertWithOnConflict(TABLE_SAPI, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     
         return rowId;
     }
@@ -231,9 +236,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sp.setRfid(c.getString(c.getColumnIndex(KEY_RFID)));
         sp.setIdTransaksi(c.getString(c.getColumnIndex((KEY_ID_TRANSACTION))));
         sp.setLocation(c.getString(c.getColumnIndex(KEY_LOCATION)));
-        sp.setSendDate(new Date(c.getLong(c.getColumnIndex(KEY_SEND_DATE))));
-        sp.setReceivedDate(new Date(c.getLong(c.getColumnIndex(KEY_RECEIVED_DATE))));
-        sp.setDeadDate(new Date(c.getLong(c.getColumnIndex(KEY_DEAD_DATE))));
+        sp.setSendDate(c.getString(c.getColumnIndex(KEY_SEND_DATE)));
+        sp.setReceivedDate(c.getString(c.getColumnIndex(KEY_RECEIVED_DATE)));
+        sp.setDeadDate(c.getString(c.getColumnIndex(KEY_DEAD_DATE)));
         sp.setStatus(c.getString(c.getColumnIndex(KEY_STATUS)));
 
         return sp;
@@ -255,9 +260,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 sp.setRfid(c.getString(c.getColumnIndex(KEY_RFID)));
                 sp.setIdTransaksi(c.getString(c.getColumnIndex((KEY_ID_TRANSACTION))));
                 sp.setLocation(c.getString(c.getColumnIndex(KEY_LOCATION)));
-                sp.setSendDate(new Date(c.getLong(c.getColumnIndex(KEY_SEND_DATE))));
-                sp.setReceivedDate(new Date(c.getLong(c.getColumnIndex(KEY_RECEIVED_DATE))));
-                sp.setDeadDate(new Date(c.getLong(c.getColumnIndex(KEY_DEAD_DATE))));
+                sp.setSendDate(c.getString(c.getColumnIndex(KEY_SEND_DATE)));
+                sp.setReceivedDate(c.getString(c.getColumnIndex(KEY_RECEIVED_DATE)));
+                sp.setDeadDate(c.getString(c.getColumnIndex(KEY_DEAD_DATE)));
                 sp.setStatus(c.getString(c.getColumnIndex(KEY_STATUS)));
     
                 // adding to sapi list
@@ -275,15 +280,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_RFID, sapi.getRfid());
         values.put(KEY_ID_TRANSACTION, sapi.getIdTransaksi());
         values.put(KEY_LOCATION, sapi.getLocation());
-        values.put(KEY_SEND_DATE, String.valueOf(sapi.getSendDate()));
-        values.put(KEY_RECEIVED_DATE, String.valueOf(sapi.getReceivedDate()));
-        values.put(KEY_DEAD_DATE, String.valueOf(sapi.getDeadDate()));
+        values.put(KEY_SEND_DATE, sapi.getSendDate());
+        values.put(KEY_RECEIVED_DATE, sapi.getReceivedDate());
+        values.put(KEY_DEAD_DATE, sapi.getDeadDate());
         values.put(KEY_STATUS, sapi.getStatus());
     
         // updating row
         return db.update(TABLE_SAPI, values, KEY_RFID + " = ?",
                 new String[] { String.valueOf(sapi.getRfid()) });
     }
-
 
 }

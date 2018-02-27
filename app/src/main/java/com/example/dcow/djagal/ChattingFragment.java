@@ -3,10 +3,26 @@ package com.example.dcow.djagal;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.firebase.ui.database.FirebaseListAdapter;
+import com.firebase.ui.database.FirebaseListOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 
 /**
@@ -18,8 +34,11 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class ChattingFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+    @BindView(R.id.input) EditText inputMessage;
+    @BindView(R.id.fab) FloatingActionButton fab;
+    @BindView(R.id.list_of_messages) ListView listOfMessages;
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -28,6 +47,10 @@ public class ChattingFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private FirebaseListAdapter<Chat> chatAdapter;
+    private Query query;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
 
     public ChattingFragment() {
         // Required empty public constructor
@@ -64,7 +87,14 @@ public class ChattingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chatting, container, false);
+        View view = inflater.inflate(R.layout.fragment_chatting, container, false);
+
+        query = FirebaseDatabase.getInstance().getReference();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+
+        displayChatMessages();
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,4 +135,55 @@ public class ChattingFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    @OnClick(R.id.fab) public void submit() {
+        Log.d("Input Data", inputMessage.getText().toString());
+
+        // Read the input field and push a new instance
+        // of ChatMessage to the Firebase database
+        FirebaseDatabase.getInstance().getReference()
+                .push()
+                .setValue(new Chat(inputMessage.getText().toString(),
+                        FirebaseAuth.getInstance()
+                                .getCurrentUser()
+                                .getDisplayName(),
+                        FirebaseAuth.getInstance()
+                                .getCurrentUser()
+                                .getUid())
+                );
+
+        // Clear the input
+        inputMessage.setText("");
+        displayChatMessages();
+    }
+
+    public void displayChatMessages(){
+        FirebaseListOptions<Chat> options = new FirebaseListOptions.Builder<Chat>()
+                .setQuery(query, Chat.class)
+                .setLayout(R.layout.item_in_chat)
+                .build();
+        Log.d("Test", options.toString());
+        //Finally you pass them to the constructor here:
+        chatAdapter = new FirebaseListAdapter<Chat>(options) {
+            @Override
+            protected void populateView(View v, Chat model, int position) {
+                // Get references to the views of message.xml
+                TextView messageText = (TextView)v.findViewById(R.id.message_text);
+                TextView messageUser = (TextView)v.findViewById(R.id.message_user);
+                TextView messageTime = (TextView)v.findViewById(R.id.message_time);
+
+                // Set their text
+                messageText.setText(model.getMessage());
+                messageUser.setText(model.getFrom());
+
+                // Format the date before showing it
+                messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
+                        model.getDate()));
+            }
+        };
+
+        listOfMessages.setAdapter(chatAdapter);
+
+    }
+
 }

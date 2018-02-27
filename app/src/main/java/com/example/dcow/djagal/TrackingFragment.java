@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -92,7 +93,7 @@ public class TrackingFragment extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 Intent intent = new Intent(getActivity(), ShowTransactionActivity.class);
-                intent.putExtra("com.example.dcow.djagal.extra.idtransaksi", (transactionList.get(position).getName()));
+                intent.putExtra("com.example.dcow.djagal.extra.idtransaksi", (transactionList.get(position).getIdObject()));
                 startActivity(intent);
             }
 
@@ -102,7 +103,11 @@ public class TrackingFragment extends Fragment {
             }
         }));
 
-        prepareTransactionData();
+        try {
+            prepareTransactionData();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return view;
     }
 
@@ -145,7 +150,7 @@ public class TrackingFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void prepareTransactionData() {
+    private void prepareTransactionData() throws ParseException {
         List<Transaction> trs = db.getAllTransactions();
         for (Transaction tr : trs){
             transactionList.add(tr);
