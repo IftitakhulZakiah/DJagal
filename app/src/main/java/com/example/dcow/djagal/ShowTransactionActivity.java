@@ -22,11 +22,10 @@ public class ShowTransactionActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String title =
-                intent.getStringExtra("com.example.dcow.djagal.extra.nomortransaksi");
+                intent.getStringExtra("com.example.dcow.djagal.extra.idtransaksi");
 
         titleView = (TextView) findViewById(R.id.titleTransaksi);
         titleView.setText("Transaksi " + title);
-
     }
 
 }

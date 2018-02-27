@@ -7,27 +7,36 @@ import java.util.Date;
  */
 
 public class Sapi {
+    private String id_transaksi;
     private String rfid;
-    private String lokasi;
-    private Date tanggal_dikirim;
-    private Date tanggal_diterima;
-    private Date tanggal_dipotong;
+    private String location;
+    private Date send_date;
+    private Date received_date;
+    private Date dead_date;
     private String status;
-    private int nomor_transaksi;
+    
 
     public Sapi(){
 
     }
 
-    public Sapi(String rfid, String lokasi, Date tanggal_dikirim, Date tanggal_diterima,
-                Date tanggal_dipotong, String status, int nomor_transaksi){
+    public Sapi(String id_transaksi, String rfid, String location, Date send_date, Date received_date,
+                Date dead_date, String status){
+        this.id_transaksi = id_transaksi;
         this.rfid = rfid;
-        this.lokasi = lokasi;
-        this.tanggal_dikirim = tanggal_dikirim;
-        this.tanggal_diterima = tanggal_diterima;
-        this.tanggal_dipotong = tanggal_dipotong;
+        this.location = location;
+        this.send_date = send_date;
+        this.received_date = received_date;
+        this.dead_date = dead_date;
         this.status = status;
-        this.nomor_transaksi = nomor_transaksi;
+    }
+
+    public String getIdTransaksi(){
+        return id_transaksi;
+    }
+
+    public void setIdTransaksi(String id_transaksi){
+        this.id_transaksi = id_transaksi;
     }
 
     public String getRfid(){
@@ -38,36 +47,36 @@ public class Sapi {
         this.rfid = rfid;
     }
 
-    public String getLokasi(){
-        return lokasi;
+    public String getLocation(){
+        return location;
     }
 
-    public void setLokasi(String lokasi){
-        this.lokasi = lokasi;
+    public void setLocation(String location){
+        this.location = location;
     }
 
-    public Date getTanggalDikirim(){
-        return tanggal_dikirim;
+    public Date getSendDate(){
+        return send_date;
     }
 
-    public void setTanggalDikirim(Date tanggal_dikirim){
-        this.tanggal_dikirim = tanggal_dikirim;
+    public void setSendDate(Date send_date){
+        this.send_date = send_date;
     }
 
-    public Date getTanggalDiterima(){
-        return tanggal_diterima;
+    public Date getReceivedDate(){
+        return received_date;
     }
 
-    public void setTanggalDiterima(Date tanggal_diterima){
-        this.tanggal_diterima = tanggal_diterima;
+    public void setReceivedDate(Date received_date){
+        this.received_date = received_date;
     }
 
-    public Date getTanggalDipotong(){
-        return tanggal_dipotong;
+    public Date getDeadDate(){
+        return dead_date;
     }
 
-    public void setTanggalDipotong(Date tanggal_dipotong){
-        this.tanggal_dipotong = tanggal_dipotong;
+    public void setDeadDate(Date dead_date){
+        this.dead_date = dead_date;
     }
 
     public String getStatus(){
@@ -76,13 +85,5 @@ public class Sapi {
 
     public void setStatus(String status){
         this.status = status;
-    }
-
-    public int getNomorTransaksi(){
-        return nomor_transaksi;
-    }
-
-    public void setNomorTransaksi(int nomor_transaksi){
-        this.nomor_transaksi = nomor_transaksi;
     }
 }

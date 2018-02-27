@@ -11,33 +11,43 @@ import java.util.Date;
  */
 
 public class Transaction {
-    private int nomor;
+    private String id_object;
+    private String name;
     private String from;
     private String to;
     private String status;
-    private int jumlah_sapi;
-    private Date tanggal;
+    private int total_cow;
+    private Date date;
 
     public Transaction() {
 
     }
 
-    public Transaction(int nomor, String from, String to, String status,
-                       int jumlah_sapi, Date tanggal) {
-        this.nomor = nomor;
+    public Transaction(String id_object, String name, String from, String to, String status,
+                       int total_cow, Date date) {
+        this.id_object = id_object;
+        this.name = name;
         this.from = from;
         this.to = to;
         this.status = status;
-        this.jumlah_sapi = jumlah_sapi;
-        this.tanggal = tanggal;
+        this.total_cow = total_cow;
+        this.date = date;
     }
 
-    public int getNomor() {
-        return nomor;
+    public String getIdObject() {
+        return id_object;
     }
 
-    public void setNomor(int nomor) {
-        this.nomor = nomor;
+    public void setIdObject(String id_object) {
+        this.id_object = id_object;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getFrom() {
@@ -64,20 +74,20 @@ public class Transaction {
         this.status = status;
     }
 
-    public int getJumlahSapi() {
-        return jumlah_sapi;
+    public int getTotalCow() {
+        return total_cow;
     }
 
-    public void setJumlahSapi(int jumlah_sapi) {
-        this.jumlah_sapi = jumlah_sapi;
+    public void setTotalCow(int total_cow) {
+        this.total_cow = total_cow;
     }
 
-    public Date getTanggal() {
-        return tanggal;
+    public Date getDate() {
+        return date;
     }
 
-    public void setTanggal(Date tanggal) {
-        this.tanggal = tanggal;
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
 

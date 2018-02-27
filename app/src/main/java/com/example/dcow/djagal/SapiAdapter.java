@@ -19,12 +19,12 @@ public class SapiAdapter extends RecyclerView.Adapter<SapiAdapter.MyViewHolder> 
     private List<Sapi> sapiList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView rfid, lokasi, status;
+        public TextView rfid, location, status;
 
         public MyViewHolder(View view) {
             super(view);
             rfid = (TextView) view.findViewById(R.id.rfidSapi);
-            lokasi = (TextView) view.findViewById(R.id.lokasiSapi);
+            location = (TextView) view.findViewById(R.id.lokasiSapi);
             status = (TextView) view.findViewById(R.id.statusSapi);
         }
     }
@@ -46,7 +46,7 @@ public class SapiAdapter extends RecyclerView.Adapter<SapiAdapter.MyViewHolder> 
     public void onBindViewHolder(SapiAdapter.MyViewHolder holder, int position) {
         Sapi sapi = sapiList.get(position);
         holder.rfid.setText(sapi.getRfid());
-        holder.lokasi.setText(sapi.getLokasi());
+        holder.location.setText(sapi.getLocation());
         holder.status.setText(sapi.getStatus());
     }
 
