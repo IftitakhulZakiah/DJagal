@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Djagal.iml" filepath="$PROJECT_DIR$/Djagal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DJagal.iml" filepath="$PROJECT_DIR$/DJagal.iml" />
+      <module fileurl="file://C:\Users\user\Documents\GitHub\djagal-android\github\DJagal\Djagal.iml" filepath="C:\Users\user\Documents\GitHub\djagal-android\github\DJagal\Djagal.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\user\Documents\GitHub\djagal-android\github\DJagal\app\app.iml" filepath="C:\Users\user\Documents\GitHub\djagal-android\github\DJagal\app\app.iml" />
     </modules>
   </component>
 </project>
