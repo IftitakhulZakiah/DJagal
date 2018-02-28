@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:color="@color/colorPrimaryDark">
+    android:background="@color/colorPrimaryDark"
+    tools:context="com.example.dcow.djagal.SplashActivity">
 
-    
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

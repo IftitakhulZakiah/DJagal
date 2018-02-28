@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
 
