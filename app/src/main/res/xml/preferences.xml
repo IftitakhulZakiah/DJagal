@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="username_preference"
+        android:title="Username"
+        android:summary="your username"
+        />
+    <EditTextPreference
+        android:defaultValue="username"
+        android:key="password_preference"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Password"
+        android:summary="change your password"/>
+    <Preference
+        android:key="locate_me_preference"
+        android:title="Locate me"
+        android:summary="calibrate my location" />
+    <Preference
+        android:key="signout_preference"
+        android:title="Sign Out" />
+</PreferenceScreen>
+
